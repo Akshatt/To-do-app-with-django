@@ -16,3 +16,9 @@ def add_todo(request):
     content = request.POST["content"]
     obj = Todo.objects.create(added_date=current_date, text=content)
     return HttpResponseRedirect("/")
+
+
+def del_todo(request, todo_id):
+    todo = Todo.objects.get(id=todo_id)
+    todo.delete()
+    return HttpResponseRedirect("/")

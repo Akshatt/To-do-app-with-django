@@ -11,30 +11,37 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container" style="width:500px">
+    <div class="container" style="width:500px; height:1000px; background-color:#222930;">
         <nav class="navbar navbar-dark bg-dark">
-         <a class="navbar-brand">To Do App</a>
+         <a class="navbar-brand ">Keep track of all your to-do's in one place!</a>
         </nav>
         <div class="row mt-4">
             <div class="col">
-                <h2> Add Item</h2>
+                <h2 style="color:white;"> Add Item</h2>
                 <form class="form-inline"  action="add_todo/" method="post"> {% csrf_token %}
-                    <input type="text" name="content" class="form-control mb-2 mr-sm-2" placeholder="type here ...">
-                    <button type="submit" class="btn btn-primary mb-2" style="margin-left:10px;">Submit</button>
+                    <input type="text" name="content" class="form-control mb-2 mr-sm-2" placeholder="note it down...">
+                    <button type="submit" class="btn btn-primary mb-2" style="margin-left:160px;">Submit</button>
                 </form>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col">
-                <ul class="list-group">
+                <h2 style="color:white;"> Current Item{% if todo_list|length > 1 %}s{% endif %}</h2>
+                {% if todo_list|length == 0 %}
+                    <h5 style="color:white;">Nothing noted yet!</h5>
+                {% endif %}
+                <ul class="list-group list-group-flush">
                     {% for item in todo_list %}
-                        <li class="list-group-item">{{ item.text }}
-                            <form action="del_todo/{{item.id}}/" method="post"> {% csrf_token %}
+                     <form action="del_todo/{{item.id}}/" method="post"> {% csrf_token %}
+                        <li class="list-group-item " style="background-color:#222930 ; color:white;">{{ item.text }}
+
                                 <button type="submit" class="btn btn-sm btn-danger float-right" >Delete</button>
-                            </form>
+
                         </li>
+                     </form>
                     {% endfor %}
                 </ul>
+
             </div>
         </div>
     </div>
